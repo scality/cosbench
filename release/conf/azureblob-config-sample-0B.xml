@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<workload name="write-read-load ZENKO GA1.0" description="Metadata (0 byte objects) sample benchmark for Azure blob">
+  <storage type="azureblob" config="accountName=myStorageAccountName;accountKey=myStorageAccountKey" />
+  <workflow>
+    <workstage name="write_1" closuredelay="30" config="">
+            <auth type="none"/>
+            <work name="main" type="normal" workers="1"
+                division="none" rampup="0" rampdown="0"
+                afr="0" totalOps="3000" totalBytes="0" config="">
+                <auth type="none"/>
+                <operation type="write" ratio="100" config="cprefix=cosb;containers=r(1,1);oprefix=GA_perf-;objects=r(1,999);sizes=c(0)B;createContainer=false" id="write_1"/>
+            </work>
+        </workstage>
+    <workstage name="read_1" closuredelay="30" config="">
+            <auth type="none"/>
+            <work name="main" type="normal" workers="1"
+                division="none" rampup="0" rampdown="0"
+                afr="0" totalOps="3000" totalBytes="0" config="">
+                <auth type="none"/>
+                <operation type="read" ratio="100" config="cprefix=cosb;containers=r(1,1);oprefix=GA_perf-;objects=r(1,999);sizes=c(0)B;createContainer=false" id="read_1"/>
+            </work>
+        </workstage>
+  </workflow>
+</workload>
