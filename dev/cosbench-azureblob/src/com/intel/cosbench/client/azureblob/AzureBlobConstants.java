@@ -16,4 +16,7 @@ public interface AzureBlobConstants {
         
         String USE_HTTPS_KEY = "useHttps";
         String USE_HTTPS_DEFAULT = "true";
+        
+        String ENDPOINT_SUFFIX_KEY = "endpointSuffix";
+        String ENDPOINT_SUFFIX_DEFAULT = "";
 }

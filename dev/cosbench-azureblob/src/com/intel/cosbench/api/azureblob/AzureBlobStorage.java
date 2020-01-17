@@ -10,6 +10,8 @@ import static com.intel.cosbench.client.azureblob.AzureBlobConstants.ENDPOINT_KE
 import static com.intel.cosbench.client.azureblob.AzureBlobConstants.ENDPOINT_DEFAULT;
 import static com.intel.cosbench.client.azureblob.AzureBlobConstants.USE_HTTPS_KEY;
 import static com.intel.cosbench.client.azureblob.AzureBlobConstants.USE_HTTPS_DEFAULT;
+import static com.intel.cosbench.client.azureblob.AzureBlobConstants.ENDPOINT_SUFFIX_KEY;
+import static com.intel.cosbench.client.azureblob.AzureBlobConstants.ENDPOINT_SUFFIX_DEFAULT;
 
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
@@ -56,7 +58,8 @@ public class AzureBlobStorage extends NoneStorage {
                 }
               
                 if (sasToken != "") {
-	                    // TBD
+                	storageConnectionString +=
+                			"SharedAccessSignature=" + sasToken + ";";
                 } else {
                 	storageConnectionString +=
                 			"AccountName=" + accountName + ";" +
@@ -71,6 +74,12 @@ public class AzureBlobStorage extends NoneStorage {
                     // not necessary
                     // String _endpoint = String.format(Locale.ROOT, "https://%s.blob.core.windows.net", accountName);
                 // }
+                
+                String endpointSuffix = config.get(ENDPOINT_SUFFIX_KEY, ENDPOINT_SUFFIX_DEFAULT);
+                if (endpointSuffix != "") {
+                	storageConnectionString +=
+                			"EndpointSuffix=" + endpointSuffix + ";";
+                }
                 
                 logger.info("connectionString" + storageConnectionString);
 
