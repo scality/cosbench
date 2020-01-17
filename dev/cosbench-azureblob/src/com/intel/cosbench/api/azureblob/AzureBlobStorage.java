@@ -66,7 +66,7 @@ public class AzureBlobStorage extends NoneStorage {
                 String endpoint = config.get(ENDPOINT_KEY, ENDPOINT_DEFAULT);
                 if (endpoint != "") {
                 	storageConnectionString +=
-                			"Endpoint=" + endpoint + ";";
+                			"BlobEndpoint=" + endpoint + ";";
                 } // else {
                     // not necessary
                     // String _endpoint = String.format(Locale.ROOT, "https://%s.blob.core.windows.net", accountName);
@@ -124,7 +124,7 @@ public class AzureBlobStorage extends NoneStorage {
 		super.createContainer(container, config);
 		try {
 			CloudBlobContainer cloudBlobContainer = cloudBlobClient.getContainerReference(container);
-			if (cloudBlobContainer.exists()) {
+			if (!cloudBlobContainer.exists()) {
 				cloudBlobContainer.create();
 			}
 		} catch (com.microsoft.azure.storage.StorageException azureBlobExce) {
